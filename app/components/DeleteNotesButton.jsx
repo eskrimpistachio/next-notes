@@ -2,12 +2,12 @@
 import { Button } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-export default function DeletePostButton({ postId }) {
+export default function DeletePostButton({ notesId }) {
   const router = useRouter();
 
   async function handleClick() {
     try {
-      await fetch(`../api/post/${postId}`, {
+      await fetch(`../api/notes/${notesId}`, {
         method: 'DELETE',
       });
       router.replace('/')
@@ -18,7 +18,7 @@ export default function DeletePostButton({ postId }) {
 
   return (
     <Button type="submit" colorScheme="red" onClick={handleClick}>
-      Delete Post
+      Delete Notes
     </Button>
   );
 }

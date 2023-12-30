@@ -1,27 +1,10 @@
-import Image from 'next/image';
 import prisma from '@/prisma/prisma';
-import Post from './components/Post';
+import Notes from './components/Notes';
 import Link from 'next/link';
 import { Button } from '@chakra-ui/react';
 
-async function getPosts() {
-  const posts = await prisma.Post.findMany({
-    where: {
-      published: true,
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
-  return posts;
-}
-
 export default async function Home() {
-  const post = await getPosts();
-
-  // console.log(post);
+  const notes = await prisma.notes.findMany();
 
   return (
     <>
@@ -29,20 +12,17 @@ export default async function Home() {
         <h1 className="font-bold text-2xl border-b border-[#ABABAB] py-4">
           My Simple Notes App
         </h1>
-        {post.length === 0 ? (
+        {notes.length === 0 ? (
           <h1 className="font-bold text-xl">Tidak ada catatan</h1>
         ) : (
           <>
-            {post.map((p) => (
-              <Link key={p.id} href={`/post/${p.id}`}>
-                <Post
-                  id={p.id}
-                  title={p.title}
-                  content={p.content}
-                  authorName={p.author.name}
-                />
-              </Link>
-            ))}
+            <div className='flex flex-row flex-wrap gap-8'>
+              {notes.map((p) => (
+                <Link key={p.id} href={`/notes/${p.id}`} >
+                  <Notes id={p.id} title={p.title} />
+                </Link>
+              ))}
+            </div>
           </>
         )}
 
