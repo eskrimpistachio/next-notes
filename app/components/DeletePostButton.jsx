@@ -10,7 +10,7 @@ export default function DeletePostButton({ postId }) {
       await fetch(`../api/post/${postId}`, {
         method: 'DELETE',
       });
-      router.refresh();
+      router.replace('/')
     } catch (e) {
       console.error(e);
     }

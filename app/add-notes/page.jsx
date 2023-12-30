@@ -76,7 +76,7 @@ export default function AddNotes() {
                 Submit
               </Button>
               <Link href="/">
-                <Button colorScheme="red">Back to all notes</Button>
+                <Button colorScheme="green">Back to all notes</Button>
               </Link>
             </div>
           </form>
